@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>France Travail ROME API test</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <h1>ROME 4 : {{ profession.rome }} - {{ profession.label }}</h1>
+        <h2>Correspondance Formacode</h2>
+        <ul>
+        {% for formacode in profession.formacodes %}
+            <li>{{ formacode.formacode }} : {{ formacode.label }}</li>
+        {% endfor %}
+        </ul>
+    </body>
+</html>
