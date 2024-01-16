@@ -53,8 +53,19 @@ need to set two env vars:
 * **FRANCE_TRAVAIL_ID**: application ID
 * **FRANCE_TRAVAIL_SECRET**: application secret
 
+You can create a ``.env`` file by doing a copy of the ``sample.env`` file and
+changing the appropriate values, then perform the following command::
+
+    (venv) $ . .env
+
+
 Run
 ===
+
+.. note::
+
+    Make sure to activate your virtualenv and set the appropriate env var
+    before trying to issue any command line.
 
 ROME 4.0 Dataset
 ----------------
