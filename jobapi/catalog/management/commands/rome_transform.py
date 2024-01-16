@@ -3,6 +3,8 @@ import json
 from django.conf import settings
 from django.core.management.base import BaseCommand
 
+from jobapi.catalog.utils import normalize
+
 
 def transform_formacodes(raw_formacodes: list[dict]) -> list[dict]:
     """Transform ROME 4.0 ``formacodes`` into a list of trainings."""
@@ -10,6 +12,7 @@ def transform_formacodes(raw_formacodes: list[dict]) -> list[dict]:
         {
             'formacode': formacode['code'],
             'label': formacode['libelle'],
+            'normalized': normalize(formacode['libelle']),
         }
         for formacode in raw_formacodes
     ]
@@ -21,6 +24,7 @@ def transform_rome_professions(raw_rome: list[dict]) -> list[dict]:
         {
             'rome': rome['code'],
             'label': rome['libelle'],
+            'normalized': normalize(rome['libelle']),
             'formacodes': transform_formacodes(rome['formacodes']),
         }
         for rome in raw_rome
