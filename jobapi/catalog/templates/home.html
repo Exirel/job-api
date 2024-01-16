@@ -6,6 +6,23 @@
     </head>
     <body>
         <h1>ROME 4</h1>
+        <h2>Recherche</h2>
+        <form method="POST">
+            {{ search_form.as_p }}
+            <p><input type="submit" label="Recherche" /></p>
+        </form>
+        {% if suggestions %}
+        <ul>
+            {% for profession in suggestions %}
+            <li><a href="{% url 'rome' profession.rome %}">{{ profession.rome }}</a> :
+                {{ profession.label }}
+            </li>
+            {% endfor %}
+        </ul>
+        {% elif search_form.is_bound %}
+        <p>Aucun métier trouvé.</p>
+        {% endif %}
+        <h2>Liste des professions</h2>
         <ul>
         {% for profession in professions %}
             <li><a href="{% url 'rome' profession.rome %}">{{ profession.rome }}</a> :
