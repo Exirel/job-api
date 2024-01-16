@@ -11,7 +11,10 @@ from .utils import normalize
 # Hideous hack to justify not having a database
 # and store everything in memory instead
 with open(settings.CATALOG_DIR / 'rome.json') as fd:
-    ROME_DATA = json.loads(fd.read())
+    try:
+        ROME_DATA = json.loads(fd.read())
+    except json.JSONDecodeError:
+        ROME_DATA = {'professions': []}
 
 
 def get_suggestions(professions, search_terms):

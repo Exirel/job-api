@@ -53,12 +53,16 @@ def get_rome_professions(access_token: AccessToken) -> dict:
         'https://api.pole-emploi.io'
         '/partenaire/rome-metiers/v1/metiers/metier'
     )
-    params = {}
+    params = {
+        'champs': 'code,libelle,codeIsco,definition,emploiCadre',
+    }
     headers = {"Authorization": f'Bearer {access_token}'}
     response = requests.get(url, params=params, headers=headers)
 
     if response.status_code != 200:
-        raise CommandError('Unable to retrieve ROME professions.')
+        raise CommandError(
+            'Unable to retrieve ROME professions:\n%s' % response.text
+        )
 
     return response.json()
 

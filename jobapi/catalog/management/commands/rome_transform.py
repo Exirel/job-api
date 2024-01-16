@@ -6,26 +6,21 @@ from django.core.management.base import BaseCommand
 from jobapi.catalog.utils import normalize
 
 
-def transform_formacodes(raw_formacodes: list[dict]) -> list[dict]:
-    """Transform ROME 4.0 ``formacodes`` into a list of trainings."""
-    return [
-        {
-            'formacode': formacode['code'],
-            'label': formacode['libelle'],
-            'normalized': normalize(formacode['libelle']),
-        }
-        for formacode in raw_formacodes
-    ]
-
-
 def transform_rome_professions(raw_rome: list[dict]) -> list[dict]:
     """Transform ROME 4.0 professions to a list of normalized professions."""
     return [
         {
+            # mandatory fields
             'rome': rome['code'],
             'label': rome['libelle'],
             'normalized': normalize(rome['libelle']),
-            'formacodes': transform_formacodes(rome['formacodes']),
+
+            # the next fields are optional
+            'codeIsco': rome.get('codeIsco'),
+            # apparently the API returns \\n instead of \n properly encoded
+            # so we have to deal with this...
+            'definition': rome.get('definition', '').replace('\\n', '\n'),
+            'isStaffLevel': rome.get('emploiCadre') or False,
         }
         for rome in raw_rome
     ]

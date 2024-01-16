@@ -6,11 +6,11 @@
     </head>
     <body>
         <h1>ROME 4 : {{ profession.rome }} - {{ profession.label }}</h1>
-        <h2>Correspondance Formacode</h2>
         <ul>
-        {% for formacode in profession.formacodes %}
-            <li>{{ formacode.formacode }} : {{ formacode.label }}</li>
-        {% endfor %}
+            <li>Emploi Cadre : {{ profession.isStaffLevel|yesno}}</li>
+            <li> Code ISCO : {{ profession.codeIsco|default:"(inconnu)" }}</li>
         </ul>
+        <h2>Définition</h2>
+        {{ profession.definition|linebreaks }}
     </body>
 </html>
