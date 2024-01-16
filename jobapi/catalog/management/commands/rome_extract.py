@@ -79,6 +79,7 @@ class Command(BaseCommand):
         rome_professions = get_rome_professions(access_token)
 
         # store data into a json file
+        os.makedirs(settings.CATALOG_DIR, exist_ok=True)
         filename = settings.CATALOG_DIR / 'raw_rome.json'
         with open(filename, 'w') as fd:
             fd.write(json.dumps(rome_professions))
